@@ -1,673 +1,1067 @@
 
-// ==========================================
-// FIXNOW - SISTEMA PRINCIPAL
-// Navegación, pantallas y diagnóstico
-// ==========================================
+/* =========================================================
+   FIX NOW — FUNCIONALIDAD PRINCIPAL
+   Versión visual mejorada
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const body = document.body;
+    /* =====================================================
+       1. PROFESIONALES DE DEMOSTRACIÓN
+    ===================================================== */
 
-    // ======================================
-    // 1. MENÚ RESPONSIVE
-    // ======================================
-
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener("click", () => {
-            const abierto = navLinks.classList.toggle("show");
-
-            menuToggle.setAttribute("aria-expanded", abierto);
-            menuToggle.innerHTML = abierto
-                ? '<i class="fa-solid fa-xmark"></i>'
-                : '<i class="fa-solid fa-bars"></i>';
-        });
-
-        navLinks.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                navLinks.classList.remove("show");
-                menuToggle.setAttribute("aria-expanded", "false");
-                menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-            });
-        });
-    }
-
-    // ======================================
-    // 2. ESTILOS DE LAS PANTALLAS
-    // ======================================
-
-    const estilos = document.createElement("style");
-
-    estilos.textContent = `
-        .fix-screen {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            overflow-y: auto;
-            background: #081b2a;
-            color: #f4f7fa;
-            padding: 35px 6%;
-            animation: fixAppear .3s ease;
-        }
-
-        @keyframes fixAppear {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fix-screen-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            border-bottom: 1px solid #263c4d;
-            padding-bottom: 22px;
-            margin-bottom: 55px;
-        }
-
-        .fix-back {
-            border: 1px solid #405467;
-            color: white;
-            background: #142c3e;
-            padding: 12px 20px;
-            border-radius: 9px;
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        .fix-back:hover {
-            background: #ff9d18;
-            color: #081b2a;
-        }
-
-        .fix-screen h1 {
-            font-size: clamp(30px, 5vw, 52px);
-            margin: 15px 0;
-            color: white;
-        }
-
-        .fix-screen h1 span {
-            color: #ff9d18;
-        }
-
-        .fix-screen-description {
-            color: #aebdca;
-            max-width: 650px;
-            line-height: 1.8;
-            margin-bottom: 35px;
-        }
-
-        .fix-kicker {
-            color: #ff9d18;
-            letter-spacing: 3px;
-            font-size: 12px;
-            font-weight: 800;
-        }
-
-        .fix-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 22px;
-            margin-top: 35px;
-        }
-
-        .fix-card {
-            background: #11283a;
-            border: 1px solid #263e51;
-            border-radius: 15px;
-            padding: 25px;
-            transition: .25s;
-        }
-
-        .fix-card:hover {
-            transform: translateY(-5px);
-            border-color: #ff9d18;
-        }
-
-        .fix-card i {
-            color: #ff9d18;
-            font-size: 25px;
-            margin-bottom: 18px;
-        }
-
-        .fix-card h3 {
-            color: white;
-            margin-bottom: 12px;
-        }
-
-        .fix-card p {
-            color: #aebdca;
-            line-height: 1.7;
-            font-size: 14px;
-        }
-
-        .fix-action {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 18px;
-            border: none;
-            border-radius: 8px;
-            background: #ff9d18;
-            color: #081b2a;
-            font-weight: 800;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .fix-action:hover {
-            background: #ffb347;
-        }
-
-        .fix-form {
-            display: grid;
-            gap: 17px;
-            max-width: 650px;
-            margin-top: 30px;
-        }
-
-        .fix-form label {
-            color: #dce5ec;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .fix-form input,
-        .fix-form textarea,
-        .fix-form select {
-            width: 100%;
-            margin-top: 8px;
-            padding: 14px;
-            background: #142c3e;
-            border: 1px solid #405467;
-            border-radius: 8px;
-            color: white;
-            font: inherit;
-        }
-
-        .fix-form textarea {
-            min-height: 110px;
-            resize: vertical;
-        }
-
-        .fix-message {
-            padding: 18px;
-            margin-top: 25px;
-            background: #142c3e;
-            border-left: 4px solid #ff9d18;
-            border-radius: 8px;
-            color: #e5edf4;
-            line-height: 1.7;
-        }
-
-        @media(max-width: 600px) {
-            .fix-screen {
-                padding: 22px 5%;
-            }
-
-            .fix-screen-header {
-                margin-bottom: 35px;
-            }
-
-            .fix-back {
-                padding: 10px 12px;
-                font-size: 12px;
-            }
-        }
-    `;
-
-    document.head.appendChild(estilos);
-
-    // ======================================
-    // 3. CREAR PANTALLAS INDEPENDIENTES
-    // ======================================
-
-    const pantalla = document.createElement("div");
-    pantalla.className = "fix-screen";
-    pantalla.hidden = true;
-    body.appendChild(pantalla);
-
-    function regresarInicio() {
-        pantalla.hidden = true;
-        pantalla.innerHTML = "";
-        body.style.overflow = "";
-
-        history.replaceState(null, "", "#inicio");
-
-        document.getElementById("inicio")
-            ?.scrollIntoView({ behavior: "smooth" });
-    }
-
-    function abrirPantalla(contenido) {
-        pantalla.innerHTML = `
-            <div class="fix-screen-header">
-                <a href="#inicio" class="logo" style="text-decoration:none;color:white">
-                    <span style="font-size:25px;font-weight:900">
-                        FIX<span style="color:#ff9d18">NOW</span>
-                    </span>
-                </a>
-
-                <button class="fix-back" id="fixBack">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    Volver al inicio
-                </button>
-            </div>
-
-            ${contenido}
-        `;
-
-        pantalla.hidden = false;
-        body.style.overflow = "hidden";
-
-        document.getElementById("fixBack")
-            .addEventListener("click", regresarInicio);
-
-        pantalla.scrollTop = 0;
-    }
-
-    // ======================================
-    // 4. PANTALLA APRENDE
-    // ======================================
-
-    function abrirAprende() {
-        abrirPantalla(`
-            <span class="fix-kicker">01 — APRENDE</span>
-
-            <h1>Conocimiento que se convierte en
-                <span>soluciones.</span>
-            </h1>
-
-            <p class="fix-screen-description">
-                Explora tutoriales, aprende nuevos oficios y descubre
-                cómo realizar reparaciones paso a paso.
-            </p>
-
-            <div class="fix-grid">
-
-                <article class="fix-card">
-                    <i class="fa-solid fa-faucet"></i>
-                    <h3>Plomería básica</h3>
-                    <p>Aprende a reparar fugas, cambiar llaves y dar mantenimiento.</p>
-                    <a class="fix-action" target="_blank"
-                       rel="noopener noreferrer"
-                       href="https://www.youtube.com/results?search_query=tutorial+plomeria+basica">
-                       Ver tutoriales
-                    </a>
-                </article>
-
-                <article class="fix-card">
-                    <i class="fa-solid fa-bolt"></i>
-                    <h3>Electricidad</h3>
-                    <p>Conoce los fundamentos de las instalaciones eléctricas.</p>
-                    <a class="fix-action" target="_blank"
-                       rel="noopener noreferrer"
-                       href="https://www.youtube.com/results?search_query=curso+electricidad+basica">
-                       Ver tutoriales
-                    </a>
-                </article>
-
-                <article class="fix-card">
-                    <i class="fa-solid fa-hammer"></i>
-                    <h3>Carpintería</h3>
-                    <p>Descubre técnicas de reparación y trabajo en madera.</p>
-                    <a class="fix-action" target="_blank"
-                       rel="noopener noreferrer"
-                       href="https://www.youtube.com/results?search_query=carpinteria+basica+tutorial">
-                       Ver tutoriales
-                    </a>
-                </article>
-
-                <article class="fix-card">
-                    <i class="fa-solid fa-paint-roller"></i>
-                    <h3>Pintura</h3>
-                    <p>Aprende preparación de superficies y técnicas de pintura.</p>
-                    <a class="fix-action" target="_blank"
-                       rel="noopener noreferrer"
-                       href="https://www.youtube.com/results?search_query=curso+pintura+paredes">
-                       Ver tutoriales
-                    </a>
-                </article>
-
-            </div>
-
-            <div class="fix-message">
-                <strong>Consejo de seguridad:</strong>
-                Nunca realices trabajos eléctricos con instalaciones energizadas.
-                Para reparaciones de riesgo, contacta a un profesional.
-            </div>
-        `);
-    }
-
-    // ======================================
-    // 5. PANTALLA CONTRATA
-    // ======================================
-
-    const profesionales = [
+    const professionals = [
         {
-            nombre: "Carlos Méndez",
-            oficio: "Plomero",
-            experiencia: "8 años de experiencia",
-            precio: "Desde $250 MXN",
-            icono: "fa-faucet"
+            id: 1,
+            name: "Carlos Martínez",
+            category: "Electricidad",
+            description: "Instalaciones eléctricas, mantenimiento y reparación de fallas en el hogar.",
+            price: 450,
+            location: "Monterrey, Nuevo León",
+            experience: "5 años de experiencia",
+            photo: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=700"
         },
         {
-            nombre: "Héctor Ramírez",
-            oficio: "Carpintero",
-            experiencia: "6 años de experiencia",
-            precio: "Desde $280 MXN",
-            icono: "fa-hammer"
+            id: 2,
+            name: "Andrea López",
+            category: "Carpintería",
+            description: "Fabricación de muebles, reparación de puertas y proyectos personalizados.",
+            price: 600,
+            location: "San Nicolás, Nuevo León",
+            experience: "4 años de experiencia",
+            photo: "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=700"
         },
         {
-            nombre: "Lucía Torres",
-            oficio: "Electricista",
-            experiencia: "5 años de experiencia",
-            precio: "Desde $300 MXN",
-            icono: "fa-bolt"
+            id: 3,
+            name: "Miguel Hernández",
+            category: "Plomería",
+            description: "Reparación de tuberías, fugas, instalaciones y mantenimiento.",
+            price: 350,
+            location: "Guadalupe, Nuevo León",
+            experience: "7 años de experiencia",
+            photo: "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=700"
+        },
+        {
+            id: 4,
+            name: "Sofía Ramírez",
+            category: "Tecnología",
+            description: "Soporte técnico, mantenimiento de computadoras e instalación de programas.",
+            price: 300,
+            location: "Monterrey, Nuevo León",
+            experience: "3 años de experiencia",
+            photo: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=700"
+        },
+        {
+            id: 5,
+            name: "Daniel Torres",
+            category: "Pintura",
+            description: "Pintura residencial, acabados, preparación de superficies y detalles.",
+            price: 500,
+            location: "Apodaca, Nuevo León",
+            experience: "6 años de experiencia",
+            photo: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=700"
+        },
+        {
+            id: 6,
+            name: "Roberto Sánchez",
+            category: "Mecánica",
+            description: "Mantenimiento preventivo, revisión general y reparaciones básicas.",
+            price: 550,
+            location: "San Pedro, Nuevo León",
+            experience: "8 años de experiencia",
+            photo: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=700"
         }
     ];
 
-    function abrirContrata() {
-        const tarjetas = profesionales.map((persona, index) => `
-            <article class="fix-card">
-                <i class="fa-solid ${persona.icono}"></i>
-                <h3>${persona.nombre}</h3>
-                <p><strong>${persona.oficio}</strong></p>
-                <p>${persona.experiencia}</p>
-                <p>${persona.precio}</p>
 
-                <button class="fix-action contactar"
-                    data-profesional="${index}">
-                    <i class="fa-solid fa-comments"></i>
-                    Contactar
-                </button>
-            </article>
-        `).join("");
+    /* =====================================================
+       2. TUTORIALES CON MINIATURAS
+    ===================================================== */
 
-        abrirPantalla(`
-            <span class="fix-kicker">02 — CONTRATA</span>
+    const tutorials = [
+        {
+            id: 1,
+            title: "Introducción a la carpintería",
+            category: "Carpintería",
+            description: "Conoce las herramientas y técnicas básicas para comenzar.",
+            search: "tutorial carpintería básica para principiantes",
+            image: "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=900"
+        },
+        {
+            id: 2,
+            title: "Electricidad básica en casa",
+            category: "Electricidad",
+            description: "Aprende los conceptos fundamentales de las instalaciones eléctricas.",
+            search: "curso electricidad básica para principiantes",
+            image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=900"
+        },
+        {
+            id: 3,
+            title: "Reparaciones de plomería",
+            category: "Plomería",
+            description: "Identifica fugas y conoce las reparaciones más comunes.",
+            search: "tutorial plomería básica reparaciones",
+            image: "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=900"
+        },
+        {
+            id: 4,
+            title: "Mantenimiento de computadoras",
+            category: "Tecnología",
+            description: "Aprende a limpiar y dar mantenimiento a tu computadora.",
+            search: "tutorial mantenimiento computadora principiantes",
+            image: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=900"
+        },
+        {
+            id: 5,
+            title: "Pintura de interiores",
+            category: "Hogar",
+            description: "Conoce cómo preparar y pintar correctamente una habitación.",
+            search: "tutorial pintar paredes interiores",
+            image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=900"
+        },
+        {
+            id: 6,
+            title: "Herramientas para el hogar",
+            category: "Hogar",
+            description: "Descubre cómo utilizar herramientas básicas de manera segura.",
+            search: "herramientas básicas del hogar tutorial",
+            image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=900"
+        }
+    ];
 
-            <h1>Encuentra al profesional
-                <span>adecuado.</span>
-            </h1>
 
-            <p class="fix-screen-description">
-                Conoce especialistas y descubre quién puede ayudarte
-                con las necesidades de tu hogar.
-            </p>
+    /* =====================================================
+       3. ELEMENTOS Y ESTADO
+    ===================================================== */
 
-            <div class="fix-grid">${tarjetas}</div>
+    const pages = document.querySelectorAll(".page-section");
+    const navLinks = document.querySelectorAll(".nav-link");
 
-            <div class="fix-message">
-                Los perfiles mostrados son demostrativos.
-                Los profesionales reales deberán registrarse y verificarse
-                antes de ofrecer sus servicios.
-            </div>
-        `);
+    const mobileMenu = document.getElementById("mobile-menu-button");
+    const mainNav = document.querySelector(".main-nav");
 
-        pantalla.querySelectorAll(".contactar").forEach(boton => {
-            boton.addEventListener("click", () => {
-                const persona = profesionales[boton.dataset.profesional];
+    let currentPage = "home";
+    let selectedProfessional = null;
+    let selectedChatId = null;
 
-                abrirPantalla(`
-                    <span class="fix-kicker">CONTACTO</span>
-                    <h1>Contactar a <span>${persona.nombre}</span></h1>
+    let cart = loadStorage("fixnow_cart", []);
+    let registrations = loadStorage("fixnow_registrations", []);
+    let conversations = loadStorage("fixnow_conversations", {});
 
-                    <p class="fix-screen-description">
-                        ${persona.oficio} · ${persona.experiencia}
-                    </p>
 
-                    <form class="fix-form" id="chatDemo">
-                        <label>
-                            Tu nombre
-                            <input required placeholder="Escribe tu nombre">
-                        </label>
+    /* =====================================================
+       4. FUNCIONES GENERALES
+    ===================================================== */
 
-                        <label>
-                            Describe tu problema
-                            <textarea required placeholder="Cuéntale qué necesitas reparar..."></textarea>
-                        </label>
-
-                        <button class="fix-action" type="submit">
-                            Enviar mensaje
-                        </button>
-                    </form>
-
-                    <div id="chatRespuesta"></div>
-
-                    <div class="fix-message">
-                        Esta es una demostración de contacto.
-                        Para recibir mensajes reales entre usuarios
-                        conectaremos posteriormente una base de datos.
-                    </div>
-                `);
-
-                document.getElementById("chatDemo")
-                    .addEventListener("submit", event => {
-                        event.preventDefault();
-
-                        document.getElementById("chatRespuesta").innerHTML = `
-                            <div class="fix-message">
-                                ¡Mensaje preparado correctamente!
-                                El chat real estará disponible cuando
-                                conectemos el sistema de usuarios.
-                            </div>
-                        `;
-                    });
-            });
-        });
+    function loadStorage(key, defaultValue) {
+        try {
+            const saved = localStorage.getItem(key);
+            return saved ? JSON.parse(saved) : defaultValue;
+        } catch (error) {
+            console.warn("No se pudo leer el almacenamiento:", error);
+            return defaultValue;
+        }
     }
 
-    // ======================================
-    // 6. PANTALLA TRABAJA
-    // ======================================
-
-    function abrirTrabaja() {
-        abrirPantalla(`
-            <span class="fix-kicker">03 — TRABAJA</span>
-
-            <h1>Convierte tus habilidades en
-                <span>oportunidades.</span>
-            </h1>
-
-            <p class="fix-screen-description">
-                Registra tus datos y presenta los servicios que puedes ofrecer.
-            </p>
-
-            <form class="fix-form" id="registroProfesional">
-
-                <label>
-                    Nombre completo
-                    <input name="nombre" required placeholder="Tu nombre">
-                </label>
-
-                <label>
-                    Oficio o especialidad
-                    <select name="oficio" required>
-                        <option value="">Selecciona tu especialidad</option>
-                        <option>Plomería</option>
-                        <option>Electricidad</option>
-                        <option>Carpintería</option>
-                        <option>Pintura</option>
-                        <option>Mecánica</option>
-                        <option>Reparaciones generales</option>
-                    </select>
-                </label>
-
-                <label>
-                    Años de experiencia
-                    <input name="experiencia" type="number" min="0" required>
-                </label>
-
-                <label>
-                    Descripción de tus servicios
-                    <textarea name="descripcion" required
-                        placeholder="Describe qué trabajos realizas..."></textarea>
-                </label>
-
-                <label>
-                    Teléfono de contacto
-                    <input name="telefono" type="tel" required
-                        placeholder="Tu número de contacto">
-                </label>
-
-                <button class="fix-action" type="submit">
-                    Enviar registro
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
-
-            </form>
-
-            <div id="registroRespuesta"></div>
-        `);
-
-        document.getElementById("registroProfesional")
-            .addEventListener("submit", event => {
-                event.preventDefault();
-
-                const datos = new FormData(event.target);
-
-                document.getElementById("registroRespuesta").innerHTML = `
-                    <div class="fix-message">
-                        <strong>¡Registro de demostración completado!</strong><br>
-                        Gracias, ${datos.get("nombre")}.
-                        Tu solicitud está preparada.
-                        Para publicar tu perfil realmente necesitaremos
-                        conectar una base de datos.
-                    </div>
-                `;
-
-                event.target.reset();
-            });
+    function saveStorage(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+            return true;
+        } catch (error) {
+            console.error("No se pudo guardar la información:", error);
+            return false;
+        }
     }
 
-    // ======================================
-    // 7. CONECTAR LOS BOTONES
-    // ======================================
-
-    document.querySelectorAll('a[href="#tutoriales"]').forEach(boton => {
-        boton.addEventListener("click", event => {
-            event.preventDefault();
-            abrirAprende();
-        });
-    });
-
-    document.querySelectorAll('a[href="#profesionales"]').forEach(boton => {
-        boton.addEventListener("click", event => {
-            event.preventDefault();
-            abrirContrata();
-        });
-    });
-
-    document.querySelectorAll('.work-content a[href="#registro"]').forEach(boton => {
-        boton.addEventListener("click", event => {
-            event.preventDefault();
-            abrirTrabaja();
-        });
-    });
-
-    // ======================================
-    // 8. DIAGNÓSTICO DE PROBLEMAS
-    // ======================================
-
-    const searchForm = document.getElementById("searchForm");
-    const searchInput = document.getElementById("searchInput");
-
-    if (searchForm && searchInput) {
-
-        function diagnosticar(problema) {
-
-            const texto = problema.toLowerCase();
-
-            let resultado = {
-                titulo: "Necesitamos más información",
-                descripcion: "Describe con más detalle qué sucede en tu hogar.",
-                oficio: "Mantenimiento general",
-                icono: "fa-house"
+    function escapeHTML(value) {
+        return String(value ?? "").replace(/[&<>"']/g, character => {
+            const entities = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
             };
 
-            if (/fuga|agua|llave|tuber|lavabo|grifo|drenaje/.test(texto)) {
-                resultado = {
-                    titulo: "Posible problema de plomería",
-                    descripcion: "Podría tratarse de una fuga, una conexión floja o una obstrucción. Cierra la llave de paso si existe una fuga importante.",
-                    oficio: "Plomería",
-                    icono: "fa-faucet"
-                };
-            } else if (/luz|eléct|electr|cable|apagador|contacto|enchufe/.test(texto)) {
-                resultado = {
-                    titulo: "Posible problema eléctrico",
-                    descripcion: "Podría existir una falla en el circuito o en una conexión. Desconecta los equipos afectados y no manipules cables energizados.",
-                    oficio: "Electricidad",
-                    icono: "fa-bolt"
-                };
-            } else if (/madera|puerta|mueble|repisa|cajón/.test(texto)) {
-                resultado = {
-                    titulo: "Posible trabajo de carpintería",
-                    descripcion: "Puede requerir ajustes, fijaciones o reparación de alguna pieza.",
-                    oficio: "Carpintería",
-                    icono: "fa-hammer"
-                };
-            } else if (/pintura|pared|pintar|mancha/.test(texto)) {
-                resultado = {
-                    titulo: "Posible trabajo de pintura",
-                    descripcion: "Será necesario revisar la superficie, preparar la pared y elegir el acabado adecuado.",
-                    oficio: "Pintura",
-                    icono: "fa-paint-roller"
-                };
-            }
+            return entities[character];
+        });
+    }
 
-            abrirPantalla(`
-                <span class="fix-kicker">DIAGNÓSTICO FIXNOW</span>
+    function formatPrice(price) {
+        return new Intl.NumberFormat("es-MX", {
+            style: "currency",
+            currency: "MXN",
+            maximumFractionDigits: 2
+        }).format(price);
+    }
 
-                <h1>${resultado.titulo}</h1>
+    function showMessage(message) {
+        alert(message);
+    }
 
-                <p class="fix-screen-description">${resultado.descripcion}</p>
+    function getAllProfessionals() {
+        return [...professionals];
+    }
 
-                <div class="fix-card">
-                    <i class="fa-solid ${resultado.icono}"></i>
-                    <h3>Especialidad recomendada</h3>
-                    <p>${resultado.oficio}</p>
-                </div>
+    function getProfessionalPhoto(professional) {
+        return escapeHTML(professional.photo);
+    }
 
-                <div class="fix-message">
-                    <strong>Importante:</strong> esta herramienta ofrece
-                    orientación inicial, no un diagnóstico técnico definitivo.
-                    Si existe riesgo eléctrico, fuga importante o peligro
-                    estructural, solicita ayuda profesional.
-                </div>
 
-                <button class="fix-action" id="buscarEspecialista">
-                    Buscar especialista
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
-            `);
+    /* =====================================================
+       5. NAVEGACIÓN ENTRE PANTALLAS
+    ===================================================== */
 
-            document.getElementById("buscarEspecialista")
-                .addEventListener("click", abrirContrata);
+    function navigateTo(pageName) {
+        const targetPage = document.getElementById(`view-${pageName}`);
+
+        if (!targetPage) {
+            console.error("No existe la pantalla:", pageName);
+            return;
         }
 
-        searchForm.addEventListener("submit", event => {
-            event.preventDefault();
+        pages.forEach(page => {
+            page.classList.remove("active");
+        });
 
-            const problema = searchInput.value.trim();
+        targetPage.classList.add("active");
+        currentPage = pageName;
 
-            if (!problema) {
-                alert("Por favor, describe el problema de tu hogar.");
-                searchInput.focus();
+        navLinks.forEach(link => {
+            link.classList.toggle(
+                "active",
+                link.dataset.view === pageName
+            );
+        });
+
+        if (mainNav) mainNav.classList.remove("open");
+
+        if (mobileMenu) {
+            mobileMenu.setAttribute("aria-expanded", "false");
+        }
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        if (pageName === "cart") {
+            renderCart();
+        }
+
+        if (pageName === "chat") {
+            renderChatContacts();
+
+            if (selectedChatId) {
+                openChat(selectedChatId);
+            }
+        }
+    }
+
+    document.addEventListener("click", event => {
+        const navigationButton = event.target.closest("[data-view]");
+
+        if (!navigationButton) return;
+
+        event.preventDefault();
+
+        const destination = navigationButton.dataset.view;
+
+        if (destination === "profile" && !selectedProfessional) {
+            return;
+        }
+
+        navigateTo(destination);
+    });
+
+
+    /* =====================================================
+       6. MENÚ PARA CELULAR
+    ===================================================== */
+
+    if (mobileMenu && mainNav) {
+        mobileMenu.addEventListener("click", () => {
+            const isOpen = mainNav.classList.toggle("open");
+
+            mobileMenu.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+        });
+    }
+
+
+    /* =====================================================
+       7. CATEGORÍAS DE INICIO
+    ===================================================== */
+
+    document.querySelectorAll(".category-card").forEach(button => {
+        button.addEventListener("click", () => {
+            const category = button.dataset.category;
+
+            navigateTo("hire");
+
+            const categoryExists = Array.from(categorySelect.options)
+                .some(option => option.value === category);
+
+            categorySelect.value = categoryExists ? category : "Todos";
+
+            renderProfessionals(categorySelect.value, "");
+        });
+    });
+
+
+    /* =====================================================
+       8. APRENDE — TUTORIALES
+    ===================================================== */
+
+    const tutorialGrid = document.getElementById("tutorial-grid");
+
+    function renderTutorials(category = "Todos") {
+        const filteredTutorials = tutorials.filter(tutorial => {
+            return category === "Todos" ||
+                tutorial.category === category;
+        });
+
+        if (filteredTutorials.length === 0) {
+            tutorialGrid.innerHTML = `
+                <div class="empty-state">
+                    <h3>No encontramos tutoriales</h3>
+                    <p>Prueba con otra categoría.</p>
+                </div>
+            `;
+            return;
+        }
+
+        tutorialGrid.innerHTML = filteredTutorials.map(tutorial => {
+            const youtubeURL =
+                "https://www.youtube.com/results?search_query=" +
+                encodeURIComponent(tutorial.search);
+
+            return `
+                <article class="tutorial-card">
+
+                    <a
+                        class="tutorial-thumbnail"
+                        href="${youtubeURL}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Buscar tutorial en YouTube"
+                        style="
+                            background-image: url('${escapeHTML(tutorial.image)}');
+                            background-size: cover;
+                            background-position: center;
+                        "
+                    >
+                        <span class="play-icon">▶</span>
+                    </a>
+
+                    <div class="tutorial-info">
+                        <span>${escapeHTML(tutorial.category)}</span>
+
+                        <h3>${escapeHTML(tutorial.title)}</h3>
+
+                        <p>${escapeHTML(tutorial.description)}</p>
+
+                        <a
+                            class="text-button"
+                            href="${youtubeURL}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Ver en YouTube →
+                        </a>
+                    </div>
+
+                </article>
+            `;
+        }).join("");
+    }
+
+    document.querySelectorAll("[data-learning-category]").forEach(button => {
+        button.addEventListener("click", () => {
+            document.querySelectorAll("[data-learning-category]")
+                .forEach(item => item.classList.remove("active"));
+
+            button.classList.add("active");
+
+            renderTutorials(button.dataset.learningCategory);
+        });
+    });
+
+
+    /* =====================================================
+       9. CONTRATA — PROFESIONALES
+    ===================================================== */
+
+    const professionalGrid =
+        document.getElementById("professional-grid");
+
+    const searchInput =
+        document.getElementById("professional-search");
+
+    const categorySelect =
+        document.getElementById("professional-category");
+
+    const resultsCount =
+        document.getElementById("professional-results-count");
+
+    function renderProfessionals(category = "Todos", search = "") {
+        const allProfessionals = getAllProfessionals();
+
+        const filtered = allProfessionals.filter(professional => {
+            const matchesCategory =
+                category === "Todos" ||
+                professional.category === category;
+
+            const searchText = search.toLowerCase().trim();
+
+            const matchesSearch =
+                professional.name.toLowerCase().includes(searchText) ||
+                professional.category.toLowerCase().includes(searchText) ||
+                professional.description.toLowerCase().includes(searchText) ||
+                professional.location.toLowerCase().includes(searchText);
+
+            return matchesCategory && matchesSearch;
+        });
+
+        resultsCount.textContent =
+            `${filtered.length} profesional(es) encontrado(s)`;
+
+        if (filtered.length === 0) {
+            professionalGrid.innerHTML = `
+                <div class="empty-state">
+                    <h3>No encontramos resultados</h3>
+                    <p>Intenta buscar otra especialidad o palabra.</p>
+                </div>
+            `;
+            return;
+        }
+
+        professionalGrid.innerHTML = filtered.map(professional => {
+            return `
+                <article class="professional-card">
+
+                    <div class="professional-avatar">
+                        <img
+                            src="${getProfessionalPhoto(professional)}"
+                            alt="Fotografía de ${escapeHTML(professional.name)}"
+                            loading="lazy"
+                            style="
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                border-radius: inherit;
+                                display: block;
+                            "
+                        >
+                    </div>
+
+                    <h3>${escapeHTML(professional.name)}</h3>
+
+                    <span class="professional-category">
+                        ${escapeHTML(professional.category)}
+                    </span>
+
+                    <p>${escapeHTML(professional.description)}</p>
+
+                    <span class="professional-price">
+                        Desde ${formatPrice(professional.price)}
+                    </span>
+
+                    <div class="professional-card-actions">
+
+                        <button
+                            class="view-profile-button"
+                            data-profile-id="${professional.id}"
+                        >
+                            Ver perfil
+                        </button>
+
+                        <button
+                            class="add-cart-button"
+                            data-cart-id="${professional.id}"
+                        >
+                            + Carrito
+                        </button>
+
+                    </div>
+
+                </article>
+            `;
+        }).join("");
+    }
+
+    document.getElementById("search-professionals")
+        .addEventListener("click", () => {
+            renderProfessionals(
+                categorySelect.value,
+                searchInput.value
+            );
+        });
+
+    searchInput.addEventListener("input", () => {
+        renderProfessionals(
+            categorySelect.value,
+            searchInput.value
+        );
+    });
+
+    categorySelect.addEventListener("change", () => {
+        renderProfessionals(
+            categorySelect.value,
+            searchInput.value
+        );
+    });
+
+
+    /* =====================================================
+       10. PERFIL INDIVIDUAL
+    ===================================================== */
+
+    const profileContainer =
+        document.getElementById("professional-profile");
+
+    function openProfile(id) {
+        const professional = getAllProfessionals().find(item => {
+            return item.id === Number(id);
+        });
+
+        if (!professional) return;
+
+        selectedProfessional = professional;
+
+        profileContainer.innerHTML = `
+            <div class="profile-header">
+
+                <div class="professional-avatar">
+                    <img
+                        src="${getProfessionalPhoto(professional)}"
+                        alt="Fotografía de ${escapeHTML(professional.name)}"
+                        style="
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            border-radius: inherit;
+                            display: block;
+                        "
+                    >
+                </div>
+
+                <div>
+                    <span class="eyebrow">PERFIL PROFESIONAL</span>
+                    <h2>${escapeHTML(professional.name)}</h2>
+                    <p>${escapeHTML(professional.category)}</p>
+                </div>
+
+            </div>
+
+            <div class="profile-description">
+                <h3>Sobre el profesional</h3>
+
+                <p>${escapeHTML(professional.description)}</p>
+
+                <p><strong>Experiencia:</strong>
+                    ${escapeHTML(professional.experience)}
+                </p>
+
+                <p><strong>Ubicación:</strong>
+                    ${escapeHTML(professional.location)}
+                </p>
+
+                <p><strong>Precio estimado:</strong>
+                    ${formatPrice(professional.price)}
+                </p>
+            </div>
+
+            <div class="profile-actions">
+
+                <button
+                    class="primary-button"
+                    id="profile-chat-button"
+                >
+                    Contactar por chat →
+                </button>
+
+                <button
+                    class="secondary-button"
+                    id="profile-cart-button"
+                >
+                    Agregar al carrito
+                </button>
+
+            </div>
+        `;
+
+        document.getElementById("profile-chat-button")
+            .addEventListener("click", () => {
+                startChat(professional.id);
+            });
+
+        document.getElementById("profile-cart-button")
+            .addEventListener("click", () => {
+                addToCart(professional.id);
+            });
+
+        navigateTo("profile");
+    }
+
+
+    /* =====================================================
+       11. CARRITO
+    ===================================================== */
+
+    const cartItems = document.getElementById("cart-items");
+    const cartCount = document.getElementById("cart-count");
+    const cartSubtotal = document.getElementById("cart-subtotal");
+    const cartTotal = document.getElementById("cart-total");
+
+    function addToCart(id) {
+        const professional = getAllProfessionals().find(item => {
+            return item.id === Number(id);
+        });
+
+        if (!professional) return;
+
+        const alreadyAdded = cart.some(item => {
+            return item.id === professional.id;
+        });
+
+        if (alreadyAdded) {
+            showMessage("Este servicio ya está en tu carrito.");
+            return;
+        }
+
+        cart.push({
+            id: professional.id,
+            name: professional.name,
+            category: professional.category,
+            price: professional.price
+        });
+
+        saveStorage("fixnow_cart", cart);
+        renderCart();
+
+        showMessage("¡Servicio agregado al carrito!");
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id !== Number(id));
+
+        saveStorage("fixnow_cart", cart);
+        renderCart();
+    }
+
+    function renderCart() {
+        const total = cart.reduce((sum, item) => {
+            return sum + Number(item.price);
+        }, 0);
+
+        cartCount.textContent = cart.length;
+        cartSubtotal.textContent = formatPrice(total);
+        cartTotal.textContent = formatPrice(total);
+
+        if (cart.length === 0) {
+            cartItems.innerHTML = `
+                <div class="cart-empty">
+                    <h3>Tu carrito está vacío</h3>
+                    <p>Explora los profesionales y agrega los servicios que te interesen.</p>
+                </div>
+            `;
+            return;
+        }
+
+        cartItems.innerHTML = cart.map(item => {
+            return `
+                <div class="cart-item">
+
+                    <div>
+                        <h3>${escapeHTML(item.name)}</h3>
+                        <p>${escapeHTML(item.category)}</p>
+                        <strong>${formatPrice(item.price)}</strong>
+                    </div>
+
+                    <button
+                        data-remove-cart="${item.id}"
+                        aria-label="Eliminar servicio"
+                    >
+                        Eliminar
+                    </button>
+
+                </div>
+            `;
+        }).join("");
+    }
+
+    document.getElementById("checkout-button")
+        .addEventListener("click", () => {
+            if (cart.length === 0) {
+                showMessage("Agrega al menos un servicio antes de continuar.");
                 return;
             }
 
-            diagnosticar(problema);
+            showMessage(
+                "Tu selección está lista. El siguiente paso será confirmar los detalles y contactar a los profesionales. Esta versión todavía no procesa pagos."
+            );
         });
 
-        document.querySelectorAll(".suggestion").forEach(boton => {
-            boton.addEventListener("click", () => {
-                searchInput.value = boton.textContent.trim();
-                searchForm.requestSubmit();
-            });
-        });
+
+    /* =====================================================
+       12. CHAT DE DEMOSTRACIÓN
+    ===================================================== */
+
+    const chatContactList =
+        document.getElementById("chat-contact-list");
+
+    const chatMessages =
+        document.getElementById("chat-messages");
+
+    const chatHeader =
+        document.getElementById("chat-header");
+
+    const chatForm =
+        document.getElementById("chat-form");
+
+    const chatInput =
+        document.getElementById("chat-input");
+
+    function getConversationKey(id) {
+        return String(id);
     }
 
-    console.log("FIXNOW: sistema inicial cargado correctamente.");
+    function renderChatContacts() {
+        const contacts = Object.keys(conversations);
+
+        if (contacts.length === 0) {
+            chatContactList.innerHTML = `
+                <p class="form-note">
+                    Todavía no tienes conversaciones.
+                    Contacta a un profesional para comenzar.
+                </p>
+            `;
+            return;
+        }
+
+        chatContactList.innerHTML = contacts.map(id => {
+            const professional = getAllProfessionals().find(item => {
+                return item.id === Number(id);
+            });
+
+            if (!professional) return "";
+
+            const messages = conversations[id] || [];
+            const lastMessage = messages[messages.length - 1];
+
+            return `
+                <button
+                    class="chat-contact ${selectedChatId === Number(id) ? "active" : ""}"
+                    data-chat-id="${id}"
+                >
+
+                    <span class="chat-contact-avatar">
+                        <img
+                            src="${getProfessionalPhoto(professional)}"
+                            alt=""
+                            style="
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                border-radius: 50%;
+                            "
+                        >
+                    </span>
+
+                    <span>
+                        <strong>${escapeHTML(professional.name)}</strong>
+                        <small>
+                            ${lastMessage
+                                ? escapeHTML(lastMessage.text).slice(0, 30)
+                                : "Nueva conversación"}
+                        </small>
+                    </span>
+
+                </button>
+            `;
+        }).join("");
+    }
+
+    function startChat(id) {
+        const professional = getAllProfessionals().find(item => {
+            return item.id === Number(id);
+        });
+
+        if (!professional) return;
+
+        const key = getConversationKey(id);
+
+        if (!conversations[key]) {
+            conversations[key] = [];
+            saveStorage("fixnow_conversations", conversations);
+        }
+
+        selectedChatId = Number(id);
+
+        renderChatContacts();
+        navigateTo("chat");
+    }
+
+    function openChat(id) {
+        const professional = getAllProfessionals().find(item => {
+            return item.id === Number(id);
+        });
+
+        if (!professional) return;
+
+        selectedChatId = Number(id);
+
+        chatHeader.innerHTML = `
+            <div style="display:flex;align-items:center;gap:12px;">
+                <img
+                    src="${getProfessionalPhoto(professional)}"
+                    alt=""
+                    style="
+                        width:48px;
+                        height:48px;
+                        object-fit:cover;
+                        border-radius:50%;
+                    "
+                >
+                <div>
+                    <strong>${escapeHTML(professional.name)}</strong>
+                    <small>${escapeHTML(professional.category)}</small>
+                </div>
+            </div>
+        `;
+
+        const messages = conversations[getConversationKey(id)] || [];
+
+        if (messages.length === 0) {
+            chatMessages.innerHTML = `
+                <div class="chat-empty">
+                    <span>✉</span>
+                    <h3>Comienza la conversación</h3>
+                    <p>Escribe un mensaje para contactar al profesional.</p>
+                </div>
+            `;
+            return;
+        }
+
+        chatMessages.innerHTML = messages.map(message => {
+            return `
+                <div class="chat-message ${message.sender === "user" ? "own" : ""}">
+                    ${escapeHTML(message.text)}
+                </div>
+            `;
+        }).join("");
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatForm.addEventListener("submit", event => {
+        event.preventDefault();
+
+        const text = chatInput.value.trim();
+
+        if (!text) return;
+
+        if (!selectedChatId) {
+            showMessage("Primero selecciona una conversación.");
+            return;
+        }
+
+        const key = getConversationKey(selectedChatId);
+
+        if (!conversations[key]) {
+            conversations[key] = [];
+        }
+
+        conversations[key].push({
+            sender: "user",
+            text: text,
+            date: new Date().toISOString()
+        });
+
+        saveStorage("fixnow_conversations", conversations);
+
+        chatInput.value = "";
+
+        openChat(selectedChatId);
+        renderChatContacts();
+    });
+
+
+    /* =====================================================
+       13. REGISTRO DE PROFESIONALES
+    ===================================================== */
+
+    const registrationForm =
+        document.getElementById("professional-registration-form");
+
+    registrationForm.addEventListener("submit", event => {
+        event.preventDefault();
+
+        const formData = new FormData(registrationForm);
+
+        const newRegistration = {
+            id: Date.now(),
+            name: formData.get("name").trim(),
+            email: formData.get("email").trim(),
+            phone: formData.get("phone").trim(),
+            category: formData.get("category"),
+            description: formData.get("description").trim(),
+            price: Number(formData.get("price")) || 0,
+            date: new Date().toISOString(),
+            status: "Pendiente de revisión"
+        };
+
+        if (
+            !newRegistration.name ||
+            !newRegistration.email ||
+            !newRegistration.phone ||
+            !newRegistration.category ||
+            !newRegistration.description
+        ) {
+            showMessage("Completa todos los campos obligatorios.");
+            return;
+        }
+
+        registrations.push(newRegistration);
+
+        const saved = saveStorage(
+            "fixnow_registrations",
+            registrations
+        );
+
+        if (!saved) {
+            showMessage("No se pudo guardar tu registro. Inténtalo de nuevo.");
+            return;
+        }
+
+        registrationForm.reset();
+
+        showMessage(
+            "¡Registro recibido! Tus datos quedaron guardados en este navegador como una solicitud pendiente de revisión."
+        );
+    });
+
+
+    /* =====================================================
+       14. DIAGNÓSTICO BÁSICO
+    ===================================================== */
+
+    const diagnosisForm =
+        document.getElementById("diagnosis-form");
+
+    const diagnosisResult =
+        document.getElementById("diagnosis-result");
+
+    diagnosisForm.addEventListener("submit", event => {
+        event.preventDefault();
+
+        const category =
+            document.getElementById("diagnosis-category").value;
+
+        const description =
+            document.getElementById("diagnosis-description").value.trim();
+
+        if (!category || !description) {
+            showMessage("Completa los datos del diagnóstico.");
+            return;
+        }
+
+        const recommendations = {
+            "Electricidad": "Podrías necesitar un profesional de electricidad. No manipules cables ni instalaciones energizadas. Si hay chispas, humo u olor a quemado, aléjate y solicita ayuda especializada.",
+            "Plomería": "Podrías necesitar un especialista en plomería. Si existe una fuga, cierra la llave de paso si puedes hacerlo sin riesgo.",
+            "Carpintería": "Podrías necesitar un carpintero para revisar el mueble, puerta o estructura.",
+            "Mecánica": "Podrías necesitar una revisión mecánica especializada. Evita utilizar el vehículo si presenta fallas que comprometan la seguridad.",
+            "Tecnología": "Podrías necesitar soporte técnico para revisar tu equipo o dispositivo.",
+            "Hogar": "Podrías necesitar un especialista en mantenimiento del hogar.",
+            "Otro": "Te recomendamos revisar el problema con un profesional de la especialidad correspondiente."
+        };
+
+        const recommendation =
+            recommendations[category] || recommendations["Otro"];
+
+        diagnosisResult.innerHTML = `
+            <span class="eyebrow">ORIENTACIÓN INICIAL</span>
+            <h3>Posible solución</h3>
+            <p>${escapeHTML(recommendation)}</p>
+            <p><strong>Área:</strong> ${escapeHTML(category)}</p>
+
+            <button
+                class="primary-button"
+                id="diagnosis-find-professional"
+                style="margin-top:15px;"
+            >
+                Buscar profesional →
+            </button>
+
+            <p class="form-note" style="margin-top:12px;">
+                Esta orientación es básica y no sustituye una evaluación profesional.
+            </p>
+        `;
+
+        document.getElementById("diagnosis-find-professional")
+            .addEventListener("click", () => {
+                navigateTo("hire");
+
+                const categoryExists = Array.from(categorySelect.options)
+                    .some(option => option.value === category);
+
+                categorySelect.value = categoryExists ? category : "Todos";
+
+                renderProfessionals(categorySelect.value, "");
+            });
+    });
+
+
+    /* =====================================================
+       15. EVENTOS DE TARJETAS Y CARRITO
+    ===================================================== */
+
+    document.addEventListener("click", event => {
+        const profileButton = event.target.closest("[data-profile-id]");
+
+        if (profileButton) {
+            openProfile(profileButton.dataset.profileId);
+            return;
+        }
+
+        const cartButton = event.target.closest("[data-cart-id]");
+
+        if (cartButton) {
+            addToCart(cartButton.dataset.cartId);
+            return;
+        }
+
+        const removeButton = event.target.closest("[data-remove-cart]");
+
+        if (removeButton) {
+            removeFromCart(removeButton.dataset.removeCart);
+            return;
+        }
+
+        const chatButton = event.target.closest("[data-chat-id]");
+
+        if (chatButton) {
+            selectedChatId = Number(chatButton.dataset.chatId);
+            openChat(selectedChatId);
+            renderChatContacts();
+            return;
+        }
+    });
+
+
+    /* =====================================================
+       16. INICIALIZACIÓN
+    ===================================================== */
+
+    renderProfessionals();
+    renderCart();
+    renderTutorials();
+
+    navigateTo("home");
+
+    console.log("FIX NOW se ha inicializado correctamente.");
 
 });

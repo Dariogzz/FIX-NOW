@@ -4,442 +4,622 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FIX NOW: aprende nuevos oficios, encuentra especialistas y soluciona los problemas de tu hogar.">
-    <meta name="theme-color" content="#081C2C">
+    <meta name="description" content="FIX NOW: encuentra profesionales, aprende nuevas habilidades y ofrece tus servicios.">
+    <meta name="theme-color" content="#0A1020">
 
-    <title>FIX NOW | Lo pequeño, lo hacemos grande</title>
+    <title>FIX NOW | Soluciones que conectan</title>
 
-    <!-- Tipografías -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <!-- Estilos -->
     <link rel="stylesheet" href="styles.css">
-
 </head>
 
 <body>
 
-    <!-- ================= HEADER ================= -->
+    <!-- NAVEGACIÓN -->
+    <header class="main-header">
+        <div class="header-container">
 
-    <header class="header" id="header">
-
-        <nav class="navbar container">
-
-            <a href="#inicio" class="logo">
-                <div class="logo-icon">
-                    <i class="fa-solid fa-house-chimney"></i>
-                    <span class="logo-tool">
-                        <i class="fa-solid fa-screwdriver-wrench"></i>
-                    </span>
-                </div>
-
-                <div class="logo-text">
-                    <span>FIX<span class="orange">NOW</span></span>
-                    <small>LO PEQUEÑO, LO HACEMOS GRANDE</small>
-                </div>
+            <a href="#" class="brand" data-view="home" aria-label="FIX NOW - Inicio">
+                <img
+                    src="assets/logo-fixnow.png.jpeg"
+                    alt="Logo oficial de FIX NOW"
+                    class="brand-logo"
+                >
             </a>
 
-            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+            <nav class="main-nav">
+                <button class="nav-link active" data-view="home">Inicio</button>
+                <button class="nav-link" data-view="learn">Aprende</button>
+                <button class="nav-link" data-view="hire">Contrata</button>
+                <button class="nav-link" data-view="work">Trabaja</button>
+                <button class="nav-link" data-view="diagnose">Diagnóstico</button>
+            </nav>
 
-            <div class="nav-links" id="navLinks">
+            <div class="header-actions">
+                <button class="cart-button" data-view="cart" aria-label="Abrir carrito">
+                    <span>🛒</span>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
 
-                <a href="#inicio" class="nav-link active">Inicio</a>
-                <a href="#aprende" class="nav-link">Aprende</a>
-                <a href="#contrata" class="nav-link">Contrata</a>
-                <a href="#trabaja" class="nav-link">Trabaja</a>
-
-                <a href="#diagnostico" class="nav-diagnostic">
-                    <i class="fa-solid fa-stethoscope"></i>
-                    Diagnosticar problema
-                </a>
-
+                <button class="header-cta" data-view="hire">
+                    Encontrar profesional
+                </button>
             </div>
 
-        </nav>
+            <button class="mobile-menu-button" id="mobile-menu-button" aria-label="Abrir menú">
+                ☰
+            </button>
 
+        </div>
     </header>
 
 
-    <main>
+    <main id="app">
 
-        <!-- ================= HERO ================= -->
+        <!-- =========================
+             INICIO
+        ========================== -->
+        <section class="page-section active" id="view-home" data-page="home">
 
-        <section class="hero" id="inicio">
-
-            <div class="hero-overlay"></div>
-
-            <div class="container hero-container">
-
+            <div class="hero-section">
                 <div class="hero-content">
 
-                    <span class="hero-tag">
+                    <span class="eyebrow">
                         <span class="status-dot"></span>
-                        SOLUCIONES PARA TU HOGAR
+                        UNA NUEVA FORMA DE RESOLVER
                     </span>
 
                     <h1>
-                        Tu hogar merece
-                        <span>funcionar mejor.</span>
+                        Soluciones reales.
+                        <span>Personas extraordinarias.</span>
                     </h1>
 
-                    <p class="hero-description">
-                        Aprende a reparar, encuentra profesionales de confianza
-                        y transforma tus habilidades en oportunidades.
-                        Todo comienza aquí.
+                    <p>
+                        Encuentra expertos, aprende nuevas habilidades y conecta
+                        con personas que pueden ayudarte a transformar cualquier proyecto.
                     </p>
 
                     <div class="hero-buttons">
+                        <button class="primary-button" data-view="hire">
+                            Encontrar un profesional <span>→</span>
+                        </button>
 
-                        <a href="#aprende" class="btn btn-primary">
-                            Explorar tutoriales
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-
-                        <a href="#contrata" class="btn btn-outline">
-                            Encontrar especialista
-                        </a>
-
+                        <button class="secondary-button" data-view="learn">
+                            Comenzar a aprender
+                        </button>
                     </div>
 
                     <div class="hero-trust">
-
-                        <div class="trust-icon">
-                            <i class="fa-solid fa-house-circle-check"></i>
+                        <div class="trust-item">
+                            <strong>01</strong>
+                            <span>Encuentra</span>
                         </div>
-
-                        <div>
-                            <strong>Una solución para cada necesidad</strong>
-                            <span>Aprende, soluciona y crece con FIX NOW.</span>
+                        <div class="trust-item">
+                            <strong>02</strong>
+                            <span>Conecta</span>
                         </div>
-
+                        <div class="trust-item">
+                            <strong>03</strong>
+                            <span>Resuelve</span>
+                        </div>
                     </div>
 
                 </div>
 
-                <div class="hero-floating-card">
+                <div class="hero-visual">
+                    <div class="hero-image-placeholder">
+                        <span class="visual-label">FIX NOW EXPERIENCE</span>
 
-                    <div class="floating-icon">
-                        <i class="fa-solid fa-screwdriver-wrench"></i>
-                    </div>
-
-                    <div>
-                        <strong>¿Necesitas ayuda?</strong>
-                        <span>Encuentra cómo solucionarlo.</span>
-                    </div>
-
-                    <i class="fa-solid fa-arrow-up-right-from-square floating-arrow"></i>
-
-                </div>
-
-            </div>
-
-            <div class="hero-bottom">
-                <span>01 / 03</span>
-                <div class="hero-progress">
-                    <span></span>
-                </div>
-                <span>FIX NOW EXPERIENCE</span>
-            </div>
-
-        </section>
-
-
-        <!-- ================= SEARCH ================= -->
-
-        <section class="search-section" id="diagnostico">
-
-            <div class="container">
-
-                <div class="search-box">
-
-                    <div class="search-heading">
-                        <span class="section-kicker">¿QUÉ NECESITAS HOY?</span>
-                        <h2>Cuéntanos qué sucede.</h2>
-                        <p>Encuentra una solución para ese pequeño problema de tu hogar.</p>
-                    </div>
-
-                    <form class="main-search" id="searchForm">
-
-                        <i class="fa-solid fa-magnifying-glass"></i>
-
-                        <input
-                            type="text"
-                            id="searchInput"
-                            placeholder="Ej. Mi lavabo tiene una fuga..."
-                            aria-label="Describe tu problema"
+                        <img
+                            src="assets/logo-fixnow.png.jpeg"
+                            alt="Logo oficial de FIX NOW"
+                            class="hero-logo"
                         >
 
-                        <button type="submit">
-                            Buscar solución
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-
-                    </form>
-
-                    <div class="search-suggestions">
-                        <span>Prueba con:</span>
-                        <button type="button" class="suggestion">Fugas de agua</button>
-                        <button type="button" class="suggestion">Instalar una repisa</button>
-                        <button type="button" class="suggestion">Problemas eléctricos</button>
+                        <p>Todo lo que necesitas, en un solo lugar.</p>
                     </div>
 
-                </div>
+                    <div class="floating-card floating-card-top">
+                        <span class="floating-icon">✦</span>
+                        <div>
+                            <strong>Conexiones inteligentes</strong>
+                            <small>Personas. Soluciones. Oportunidades.</small>
+                        </div>
+                    </div>
 
+                    <div class="floating-card floating-card-bottom">
+                        <span class="floating-icon">✓</span>
+                        <div>
+                            <strong>Tu próximo proyecto</strong>
+                            <small>Comienza aquí.</small>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-        </section>
+
+            <!-- ACCESOS PRINCIPALES -->
+            <section class="home-services content-container">
+
+                <div class="section-heading">
+                    <span class="eyebrow">EXPLORA FIX NOW</span>
+                    <h2>¿Qué estás buscando hoy?</h2>
+                    <p>Elige cómo quieres comenzar.</p>
+                </div>
+
+                <div class="service-grid">
+
+                    <article class="service-card">
+                        <div class="service-icon">⌕</div>
+                        <span class="card-number">01 / CONTRATA</span>
+                        <h3>Encuentra al experto ideal</h3>
+                        <p>Conecta con profesionales especializados para resolver lo que necesitas.</p>
+                        <button class="text-button" data-view="hire">
+                            Explorar profesionales →
+                        </button>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">▶</div>
+                        <span class="card-number">02 / APRENDE</span>
+                        <h3>Aprende algo nuevo</h3>
+                        <p>Descubre tutoriales y desarrolla habilidades a tu propio ritmo.</p>
+                        <button class="text-button" data-view="learn">
+                            Explorar tutoriales →
+                        </button>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">↗</div>
+                        <span class="card-number">03 / TRABAJA</span>
+                        <h3>Ofrece tus servicios</h3>
+                        <p>Comparte tu talento, consigue clientes y haz crecer tu experiencia.</p>
+                        <button class="text-button" data-view="work">
+                            Quiero trabajar →
+                        </button>
+                    </article>
+
+                </div>
+            </section>
 
 
-        <!-- ================= CATEGORIES ================= -->
+            <!-- CATEGORÍAS -->
+            <section class="categories-section content-container">
 
-        <section class="categories section-padding">
-
-            <div class="container">
-
-                <div class="section-header">
-
-                    <div>
-                        <span class="section-kicker">EXPLORA NUESTROS SERVICIOS</span>
-                        <h2>¿Qué quieres <span>solucionar?</span></h2>
-                        <p>Descubre diferentes oficios y encuentra la solución que necesitas.</p>
-                    </div>
-
-                    <a href="#aprende" class="text-link">
-                        Ver todas las categorías
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-
+                <div class="section-heading">
+                    <span class="eyebrow">ENCUENTRA LO QUE NECESITAS</span>
+                    <h2>Soluciones para cada necesidad</h2>
+                    <p>Explora algunas de nuestras especialidades.</p>
                 </div>
 
                 <div class="category-grid">
 
-                    <a href="#aprende" class="category-card">
-                        <div class="category-icon orange-bg">
-                            <i class="fa-solid fa-hammer"></i>
-                        </div>
-                        <h3>Carpintería</h3>
-                        <p>Reparaciones y trabajos en madera.</p>
-                        <span class="category-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                    </a>
+                    <button class="category-card" data-category="Carpintería">
+                        <span>🪚</span>
+                        <strong>Carpintería</strong>
+                    </button>
 
-                    <a href="#aprende" class="category-card">
-                        <div class="category-icon blue-bg">
-                            <i class="fa-solid fa-bolt"></i>
-                        </div>
-                        <h3>Electricidad</h3>
-                        <p>Instalaciones y soluciones eléctricas.</p>
-                        <span class="category-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                    </a>
+                    <button class="category-card" data-category="Electricidad">
+                        <span>⚡</span>
+                        <strong>Electricidad</strong>
+                    </button>
 
-                    <a href="#aprende" class="category-card">
-                        <div class="category-icon green-bg">
-                            <i class="fa-solid fa-faucet"></i>
-                        </div>
-                        <h3>Plomería</h3>
-                        <p>Fugas, tuberías y mantenimiento.</p>
-                        <span class="category-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                    </a>
+                    <button class="category-card" data-category="Plomería">
+                        <span>🔧</span>
+                        <strong>Plomería</strong>
+                    </button>
 
-                    <a href="#aprende" class="category-card">
-                        <div class="category-icon purple-bg">
-                            <i class="fa-solid fa-paint-roller"></i>
-                        </div>
-                        <h3>Pintura</h3>
-                        <p>Renueva y transforma tus espacios.</p>
-                        <span class="category-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                    </a>
+                    <button class="category-card" data-category="Pintura">
+                        <span>🎨</span>
+                        <strong>Pintura</strong>
+                    </button>
 
-                    <a href="#aprende" class="category-card">
-                        <div class="category-icon red-bg">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                        </div>
-                        <h3>Reparaciones</h3>
-                        <p>Mantenimiento general del hogar.</p>
-                        <span class="category-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                    </a>
+                    <button class="category-card" data-category="Reparaciones">
+                        <span>🛠️</span>
+                        <strong>Reparaciones</strong>
+                    </button>
 
-                    <a href="#aprende" class="category-card">
-                        <div class="category-icon yellow-bg">
-                            <i class="fa-solid fa-bicycle"></i>
-                        </div>
-                        <h3>Bicicletas</h3>
-                        <p>Ajustes, mantenimiento y reparación.</p>
-                        <span class="category-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                    </a>
+                    <button class="category-card" data-category="Mecánica">
+                        <span>⚙️</span>
+                        <strong>Mecánica</strong>
+                    </button>
 
-                    <a href="#aprende" class="category-card">
-                        <div class="category-icon gray-bg">
-                            <i class="fa-solid fa-car"></i>
-                        </div>
-                        <h3>Mecánica básica</h3>
-                        <p>Conoce los cuidados de tu vehículo.</p>
-                        <span class="category-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                    </a>
+                    <button class="category-card" data-category="Instalaciones">
+                        <span>🏠</span>
+                        <strong>Instalaciones</strong>
+                    </button>
 
-                    <a href="#aprende" class="category-card">
-                        <div class="category-icon teal-bg">
-                            <i class="fa-solid fa-couch"></i>
-                        </div>
-                        <h3>Instalación de muebles</h3>
-                        <p>Arma e instala tus espacios.</p>
-                        <span class="category-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                    </a>
+                    <button class="category-card" data-category="Tecnología">
+                        <span>💻</span>
+                        <strong>Tecnología</strong>
+                    </button>
 
                 </div>
+            </section>
 
-            </div>
+
+            <!-- LLAMADO A LA ACCIÓN -->
+            <section class="home-banner content-container">
+                <div>
+                    <span class="eyebrow">TU TALENTO TIENE VALOR</span>
+                    <h2>¿Eres profesional?</h2>
+                    <p>Forma parte de FIX NOW y conecta con nuevas oportunidades.</p>
+                </div>
+
+                <button class="primary-button" data-view="work">
+                    Únete a FIX NOW →
+                </button>
+            </section>
 
         </section>
 
 
-        <!-- ================= APRENDE ================= -->
+        <!-- =========================
+             APRENDE
+        ========================== -->
+        <section class="page-section" id="view-learn" data-page="learn">
 
-        <section class="learn-section section-padding" id="aprende">
+            <div class="page-hero content-container">
+                <button class="back-button" data-view="home">← Volver al inicio</button>
 
-            <div class="container learn-container">
+                <span class="eyebrow">FIX NOW / APRENDE</span>
+                <h1>El conocimiento está <span>en tus manos.</span></h1>
 
-                <div class="learn-content">
-
-                    <span class="section-kicker">01 — APRENDE</span>
-
-                    <h2>
-                        Las habilidades que necesitas,
-                        <span>están a tu alcance.</span>
-                    </h2>
-
-                    <p>
-                        No necesitas ser un experto para comenzar.
-                        Aprende nuevos oficios con tutoriales sencillos,
-                        videos explicativos y guías paso a paso.
-                    </p>
-
-                    <div class="learn-features">
-
-                        <div>
-                            <i class="fa-solid fa-circle-check"></i>
-                            Tutoriales paso a paso
-                        </div>
-
-                        <div>
-                            <i class="fa-solid fa-circle-check"></i>
-                            Videos explicativos
-                        </div>
-
-                        <div>
-                            <i class="fa-solid fa-circle-check"></i>
-                            Herramientas y materiales
-                        </div>
-
-                        <div>
-                            <i class="fa-solid fa-circle-check"></i>
-                            Consejos de seguridad
-                        </div>
-
-                    </div>
-
-                    <a href="#tutoriales" class="btn btn-primary">
-                        Comenzar a aprender
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-
-                </div>
-
-                <div class="learn-visual">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=1000&q=85"
-                        alt="Persona realizando trabajos de reparación con herramientas"
-                    >
-
-                    <div class="learn-floating">
-                        <div class="learn-floating-icon">
-                            <i class="fa-solid fa-lightbulb"></i>
-                        </div>
-                        <div>
-                            <strong>Aprende algo nuevo</strong>
-                            <span>Un proyecto a la vez.</span>
-                        </div>
-                    </div>
-
-                </div>
-
+                <p>
+                    Aprende, practica y desarrolla nuevas habilidades con
+                    tutoriales y contenido seleccionado.
+                </p>
             </div>
 
-        </section>
+            <div class="content-container">
 
+                <div class="section-heading">
+                    <span class="eyebrow">CENTRO DE APRENDIZAJE</span>
+                    <h2>¿Qué te gustaría aprender?</h2>
+                </div>
 
-        <!-- ================= CONTRATA ================= -->
+                <div class="learning-categories" id="learning-categories">
+                    <button class="filter-button active" data-learning-category="Todos">Todos</button>
+                    <button class="filter-button" data-learning-category="Carpintería">Carpintería</button>
+                    <button class="filter-button" data-learning-category="Electricidad">Electricidad</button>
+                    <button class="filter-button" data-learning-category="Plomería">Plomería</button>
+                    <button class="filter-button" data-learning-category="Tecnología">Tecnología</button>
+                    <button class="filter-button" data-learning-category="Hogar">Hogar</button>
+                </div>
 
-        <section class="hire-section section-padding" id="contrata">
-
-            <div class="container">
-
-                <div class="hire-container">
-
-                    <div class="hire-image">
-                        <img
-                            src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1000&q=85"
-                            alt="Especialista realizando una instalación eléctrica"
-                        >
-
-                        <div class="image-label">
-                            <i class="fa-solid fa-shield-halved"></i>
-                            Profesionales para tu hogar
-                        </div>
-                    </div>
-
-                    <div class="hire-content">
-
-                        <span class="section-kicker">02 — CONTRATA</span>
-
-                        <h2>
-                            Los expertos adecuados,
-                            <span>a un clic de distancia.</span>
-                        </h2>
+                <div class="tutorial-feature">
+                    <div class="tutorial-feature-content">
+                        <span class="eyebrow">APRENDE A TU RITMO</span>
+                        <h2>Conocimiento que se convierte en habilidad.</h2>
 
                         <p>
-                            Encuentra personas con experiencia que puedan ayudarte
-                            a resolver cualquier problema de tu hogar.
+                            Encuentra guías visuales y tutoriales para aprender
+                            desde cero o mejorar lo que ya sabes.
+                        </p>
+                    </div>
+
+                    <div class="tutorial-feature-visual" aria-label="Tutoriales en video">
+                        <span>▶</span>
+                    </div>
+                </div>
+
+                <div class="section-heading">
+                    <span class="eyebrow">CONTENIDO DESTACADO</span>
+                    <h2>Tutoriales para comenzar</h2>
+                </div>
+
+                <div class="tutorial-grid" id="tutorial-grid">
+                    <!-- Los tutoriales se cargarán desde JavaScript -->
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================
+             CONTRATA
+        ========================== -->
+        <section class="page-section" id="view-hire" data-page="hire">
+
+            <div class="page-hero content-container">
+                <button class="back-button" data-view="home">← Volver al inicio</button>
+
+                <span class="eyebrow">FIX NOW / CONTRATA</span>
+                <h1>El profesional correcto. <span>La solución ideal.</span></h1>
+
+                <p>
+                    Encuentra personas capacitadas, conoce sus servicios
+                    y comunícate directamente con ellas.
+                </p>
+            </div>
+
+            <div class="content-container">
+
+                <div class="professional-search">
+
+                    <div class="search-field">
+                        <label for="professional-search">¿Qué servicio necesitas?</label>
+                        <input
+                            type="search"
+                            id="professional-search"
+                            placeholder="Ej. Plomero, electricista, carpintero..."
+                        >
+                    </div>
+
+                    <div class="search-field">
+                        <label for="professional-category">Especialidad</label>
+                        <select id="professional-category">
+                            <option value="Todos">Todas las especialidades</option>
+                            <option value="Carpintería">Carpintería</option>
+                            <option value="Electricidad">Electricidad</option>
+                            <option value="Plomería">Plomería</option>
+                            <option value="Pintura">Pintura</option>
+                            <option value="Reparaciones">Reparaciones</option>
+                            <option value="Mecánica">Mecánica</option>
+                            <option value="Tecnología">Tecnología</option>
+                        </select>
+                    </div>
+
+                    <button class="primary-button" id="search-professionals">
+                        Buscar profesionales
+                    </button>
+
+                </div>
+
+                <div class="professional-heading">
+                    <div>
+                        <span class="eyebrow">NUESTROS PROFESIONALES</span>
+                        <h2>Personas que hacen la diferencia.</h2>
+                    </div>
+
+                    <span id="professional-results-count">Profesionales disponibles</span>
+                </div>
+
+                <div class="professional-grid" id="professional-grid">
+                    <!-- Los profesionales se cargarán desde JavaScript -->
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================
+             PERFIL PROFESIONAL
+        ========================== -->
+        <section class="page-section" id="view-profile" data-page="profile">
+
+            <div class="content-container">
+                <button class="back-button" data-view="hire">← Volver a profesionales</button>
+
+                <div class="profile-container" id="professional-profile">
+                    <!-- Perfil seleccionado desde JavaScript -->
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CHAT
+        ========================== -->
+        <section class="page-section" id="view-chat" data-page="chat">
+
+            <div class="content-container">
+                <button class="back-button" data-view="hire">← Volver a profesionales</button>
+
+                <div class="chat-layout">
+
+                    <aside class="chat-sidebar">
+                        <span class="eyebrow">MENSAJES</span>
+                        <h2>Conversaciones</h2>
+
+                        <div id="chat-contact-list">
+                            <!-- Contactos desde JavaScript -->
+                        </div>
+                    </aside>
+
+                    <div class="chat-window">
+
+                        <div class="chat-header" id="chat-header">
+                            <div>
+                                <strong>Chat FIX NOW</strong>
+                                <small>Selecciona una conversación</small>
+                            </div>
+                        </div>
+
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="chat-empty">
+                                <span>✉</span>
+                                <h3>Tu espacio de conversación</h3>
+                                <p>Selecciona un profesional para comenzar.</p>
+                            </div>
+                        </div>
+
+                        <form class="chat-form" id="chat-form">
+                            <input
+                                type="text"
+                                id="chat-input"
+                                placeholder="Escribe un mensaje..."
+                                autocomplete="off"
+                            >
+
+                            <button type="submit" aria-label="Enviar mensaje">➤</button>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TRABAJA
+        ========================== -->
+        <section class="page-section" id="view-work" data-page="work">
+
+            <div class="page-hero content-container">
+                <button class="back-button" data-view="home">← Volver al inicio</button>
+
+                <span class="eyebrow">FIX NOW / TRABAJA</span>
+                <h1>Tu talento merece <span>nuevas oportunidades.</span></h1>
+
+                <p>
+                    Regístrate, comparte tus habilidades y comienza
+                    a conectar con personas que necesitan tus servicios.
+                </p>
+            </div>
+
+            <div class="content-container work-layout">
+
+                <div class="work-information">
+                    <span class="eyebrow">FORMA PARTE DE LA COMUNIDAD</span>
+                    <h2>Convierte lo que sabes hacer en oportunidades.</h2>
+
+                    <div class="work-benefit">
+                        <span>01</span>
+                        <div>
+                            <strong>Presenta tu experiencia</strong>
+                            <p>Cuéntales a los clientes qué sabes hacer.</p>
+                        </div>
+                    </div>
+
+                    <div class="work-benefit">
+                        <span>02</span>
+                        <div>
+                            <strong>Conecta con clientes</strong>
+                            <p>Recibe solicitudes y comunícate directamente.</p>
+                        </div>
+                    </div>
+
+                    <div class="work-benefit">
+                        <span>03</span>
+                        <div>
+                            <strong>Haz crecer tu trabajo</strong>
+                            <p>Construye tu reputación y muestra tus servicios.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-card">
+                    <span class="eyebrow">REGISTRO DE PROFESIONALES</span>
+                    <h2>Comienza aquí</h2>
+                    <p>Completa tus datos para presentar tu perfil.</p>
+
+                    <form id="professional-registration-form">
+
+                        <div class="form-group">
+                            <label for="worker-name">Nombre completo</label>
+                            <input type="text" id="worker-name" name="name" required placeholder="Tu nombre">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="worker-email">Correo electrónico</label>
+                            <input type="email" id="worker-email" name="email" required placeholder="correo@ejemplo.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="worker-phone">Teléfono</label>
+                            <input type="tel" id="worker-phone" name="phone" required placeholder="Tu número de contacto">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="worker-category">Especialidad</label>
+                            <select id="worker-category" name="category" required>
+                                <option value="">Selecciona una especialidad</option>
+                                <option value="Carpintería">Carpintería</option>
+                                <option value="Electricidad">Electricidad</option>
+                                <option value="Plomería">Plomería</option>
+                                <option value="Pintura">Pintura</option>
+                                <option value="Reparaciones">Reparaciones</option>
+                                <option value="Mecánica">Mecánica</option>
+                                <option value="Tecnología">Tecnología</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="worker-description">Describe tus servicios</label>
+                            <textarea id="worker-description" name="description" required rows="4" placeholder="Cuéntanos qué servicios ofreces..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="worker-price">Precio aproximado de tu servicio</label>
+                            <input type="number" id="worker-price" name="price" min="0" placeholder="Ej. 500">
+                        </div>
+
+                        <button type="submit" class="primary-button full-button">
+                            Enviar registro →
+                        </button>
+
+                        <p class="form-note">
+                            Tu registro será revisado antes de aparecer en el catálogo.
                         </p>
 
-                        <div class="hire-benefits">
+                    </form>
+                </div>
 
-                            <div>
-                                <i class="fa-solid fa-star"></i>
-                                <span>Calificaciones y reseñas</span>
-                            </div>
+            </div>
+        </section>
 
-                            <div>
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span>Especialistas por ubicación</span>
-                            </div>
 
-                            <div>
-                                <i class="fa-solid fa-comments"></i>
-                                <span>Comunicación directa</span>
-                            </div>
+        <!-- =========================
+             DIAGNÓSTICO
+        ========================== -->
+        <section class="page-section" id="view-diagnose" data-page="diagnose">
 
-                            <div>
-                                <i class="fa-solid fa-briefcase"></i>
-                                <span>Experiencia y trabajos anteriores</span>
-                            </div>
+            <div class="page-hero content-container">
+                <button class="back-button" data-view="home">← Volver al inicio</button>
 
+                <span class="eyebrow">FIX NOW / DIAGNÓSTICO</span>
+                <h1>Identifica el problema. <span>Encuentra una solución.</span></h1>
+
+                <p>
+                    Describe lo que sucede y comienza a identificar
+                    qué tipo de ayuda necesitas.
+                </p>
+            </div>
+
+            <div class="content-container">
+
+                <div class="form-card diagnosis-card">
+                    <span class="eyebrow">ASISTENTE DE DIAGNÓSTICO</span>
+                    <h2>Cuéntanos qué sucede</h2>
+
+                    <form id="diagnosis-form">
+
+                        <div class="form-group">
+                            <label for="diagnosis-category">¿En qué área tienes el problema?</label>
+
+                            <select id="diagnosis-category" required>
+                                <option value="">Selecciona una categoría</option>
+                                <option value="Electricidad">Electricidad</option>
+                                <option value="Plomería">Plomería</option>
+                                <option value="Carpintería">Carpintería</option>
+                                <option value="Mecánica">Mecánica</option>
+                                <option value="Tecnología">Tecnología</option>
+                                <option value="Hogar">Hogar</option>
+                                <option value="Otro">Otro</option>
+                            </select>
                         </div>
 
-                        <a href="#profesionales" class="btn btn-primary">
-                            Encontrar un profesional
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                        <div class="form-group">
+                            <label for="diagnosis-description">Describe el problema</label>
+                            <textarea id="diagnosis-description" rows="5" required placeholder="Explica qué sucede..."></textarea>
+                        </div>
 
-                    </div>
+                        <button type="submit" class="primary-button full-button">
+                            Analizar mi problema →
+                        </button>
 
+                    </form>
+
+                    <div id="diagnosis-result" class="diagnosis-result"></div>
                 </div>
 
             </div>
@@ -447,121 +627,53 @@
         </section>
 
 
-        <!-- ================= TRABAJA ================= -->
+        <!-- =========================
+             CARRITO
+        ========================== -->
+        <section class="page-section" id="view-cart" data-page="cart">
 
-        <section class="work-section section-padding" id="trabaja">
+            <div class="page-hero content-container">
+                <button class="back-button" data-view="home">← Volver al inicio</button>
 
-            <div class="container">
+                <span class="eyebrow">FIX NOW / CARRITO</span>
+                <h1>Tu selección, <span>en un solo lugar.</span></h1>
+                <p>Revisa los servicios que has agregado.</p>
+            </div>
 
-                <div class="work-content">
+            <div class="content-container cart-layout">
 
-                    <span class="section-kicker">03 — TRABAJA</span>
+                <div class="cart-items-container">
+                    <div class="section-heading">
+                        <h2>Servicios seleccionados</h2>
+                    </div>
 
-                    <h2>
-                        Tus habilidades pueden convertirse
-                        en <span>grandes oportunidades.</span>
-                    </h2>
+                    <div id="cart-items">
+                        <!-- Elementos del carrito desde JavaScript -->
+                    </div>
+                </div>
 
-                    <p>
-                        Comparte lo que sabes hacer, conecta con nuevos clientes
-                        y construye oportunidades a partir de tus conocimientos.
+                <aside class="cart-summary">
+                    <span class="eyebrow">RESUMEN</span>
+                    <h2>Tu pedido</h2>
+
+                    <div class="summary-line">
+                        <span>Servicios</span>
+                        <strong id="cart-subtotal">$0.00</strong>
+                    </div>
+
+                    <div class="summary-line">
+                        <span>Total estimado</span>
+                        <strong id="cart-total">$0.00</strong>
+                    </div>
+
+                    <button class="primary-button full-button" id="checkout-button">
+                        Continuar →
+                    </button>
+
+                    <p class="form-note">
+                        Los precios y la disponibilidad deberán confirmarse con el profesional.
                     </p>
-
-                    <a href="#registro" class="btn btn-light">
-                        Quiero ofrecer mis servicios
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-
-                </div>
-
-                <div class="work-decoration">
-                    <i class="fa-solid fa-toolbox"></i>
-                    <i class="fa-solid fa-hammer"></i>
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= HOW IT WORKS ================= -->
-
-        <section class="steps-section section-padding">
-
-            <div class="container">
-
-                <div class="section-header centered">
-
-                    <span class="section-kicker">SIMPLE, PRÁCTICO Y PARA TODOS</span>
-
-                    <h2>Así funciona <span>FIX NOW.</span></h2>
-
-                    <p>Un espacio donde el conocimiento se convierte en soluciones y oportunidades.</p>
-
-                </div>
-
-                <div class="steps-grid">
-
-                    <div class="step-card">
-                        <span class="step-number">01</span>
-                        <div class="step-icon">
-                            <i class="fa-solid fa-book-open"></i>
-                        </div>
-                        <h3>Aprende</h3>
-                        <p>Descubre nuevos oficios y desarrolla habilidades.</p>
-                    </div>
-
-                    <div class="step-card">
-                        <span class="step-number">02</span>
-                        <div class="step-icon">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                        </div>
-                        <h3>Practica</h3>
-                        <p>Pon en práctica lo que has aprendido.</p>
-                    </div>
-
-                    <div class="step-card">
-                        <span class="step-number">03</span>
-                        <div class="step-icon">
-                            <i class="fa-solid fa-user-tie"></i>
-                        </div>
-                        <h3>Ofrece</h3>
-                        <p>Comparte tus habilidades con otras personas.</p>
-                    </div>
-
-                    <div class="step-card">
-                        <span class="step-number">04</span>
-                        <div class="step-icon">
-                            <i class="fa-solid fa-chart-line"></i>
-                        </div>
-                        <h3>Crece</h3>
-                        <p>Consigue clientes y genera nuevas oportunidades.</p>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= FINAL CTA ================= -->
-
-        <section class="final-cta" id="registro">
-
-            <div class="container final-cta-container">
-
-                <div>
-                    <span class="section-kicker">ES MOMENTO DE COMENZAR</span>
-                    <h2>Todo gran cambio comienza con una pequeña solución.</h2>
-                    <p>Encuentra tu siguiente paso con FIX NOW.</p>
-                </div>
-
-                <a href="#inicio" class="btn btn-primary">
-                    Explorar FIX NOW
-                    <i class="fa-solid fa-arrow-right"></i>
-                </a>
+                </aside>
 
             </div>
 
@@ -570,55 +682,46 @@
     </main>
 
 
-    <!-- ================= FOOTER ================= -->
+    <!-- PIE DE PÁGINA -->
+    <footer class="main-footer">
+        <div class="footer-container">
 
-    <footer class="footer">
-
-        <div class="container">
-
-            <div class="footer-main">
-
-                <a href="#inicio" class="logo footer-logo">
-
-                    <div class="logo-icon">
-                        <i class="fa-solid fa-house-chimney"></i>
-                        <span class="logo-tool">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                        </span>
-                    </div>
-
-                    <div class="logo-text">
-                        <span>FIX<span class="orange">NOW</span></span>
-                        <small>LO PEQUEÑO, LO HACEMOS GRANDE</small>
-                    </div>
-
+            <div class="footer-brand">
+                <a href="#" class="brand" data-view="home" aria-label="FIX NOW - Inicio">
+                    <img
+                        src="assets/logo-fixnow.png.jpeg"
+                        alt="Logo oficial de FIX NOW"
+                        class="brand-logo"
+                    >
                 </a>
 
-                <p>
-                    Soluciones para tu hogar, conocimientos para tu futuro
-                    y oportunidades para todos.
-                </p>
-
-                <div class="footer-links">
-                    <a href="#inicio">Inicio</a>
-                    <a href="#aprende">Aprende</a>
-                    <a href="#contrata">Contrata</a>
-                    <a href="#trabaja">Trabaja</a>
-                </div>
-
+                <p>Conectamos talento, conocimiento y soluciones.</p>
             </div>
 
-            <div class="footer-bottom">
-                <span>© 2026 FIX NOW. Todos los derechos reservados.</span>
-                <span>Lo pequeño, lo hacemos grande.</span>
+            <div class="footer-links">
+                <strong>Explora</strong>
+                <button data-view="learn">Aprende</button>
+                <button data-view="hire">Contrata</button>
+                <button data-view="work">Trabaja</button>
+            </div>
+
+            <div class="footer-links">
+                <strong>Servicios</strong>
+                <button data-view="diagnose">Diagnóstico</button>
+                <button data-view="cart">Carrito</button>
+                <button data-view="home">Inicio</button>
             </div>
 
         </div>
 
+        <div class="footer-bottom">
+            <p>© 2026 FIX NOW. Todos los derechos reservados.</p>
+            <span>Hecho para conectar.</span>
+        </div>
     </footer>
 
 
-    <!-- JavaScript -->
+    <!-- JAVASCRIPT -->
     <script src="script.js"></script>
 
 </body>
