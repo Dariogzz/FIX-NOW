@@ -2272,3 +2272,245 @@ select option {
         animation: none;
     }
 }
+
+
+/* =========================================================
+   FIX NOW — COMBOS Y PROMOCIONES
+   Estilos adicionales: conservar el CSS anterior
+========================================================= */
+
+#view-combos {
+    padding-bottom: 90px;
+}
+
+#view-combos .page-hero {
+    background:
+        radial-gradient(ellipse at 85% 15%, rgba(255, 113, 56, 0.18), transparent 38%),
+        radial-gradient(ellipse at 15% 80%, rgba(23, 107, 255, 0.14), transparent 40%);
+}
+
+#view-combos .page-hero h1 span {
+    background: linear-gradient(90deg, #FF7138, #FFB15E, #35C8FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+#view-combos .section-heading {
+    margin-bottom: 35px;
+}
+
+#view-combos .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    align-items: stretch;
+}
+
+#view-combos .combo-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 390px;
+    padding: 30px;
+    overflow: hidden;
+
+    border: 1px solid rgba(53, 200, 255, 0.2);
+    border-radius: 20px;
+
+    background:
+        radial-gradient(circle at 90% 5%, rgba(255, 113, 56, 0.17), transparent 35%),
+        linear-gradient(145deg, #1A3150, #101B2D 75%);
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.16);
+    transition: transform 0.3s ease, border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+#view-combos .combo-card:nth-child(2) {
+    background:
+        radial-gradient(circle at 90% 5%, rgba(53, 200, 255, 0.18), transparent 35%),
+        linear-gradient(145deg, #18334B, #101B2D 75%);
+}
+
+#view-combos .combo-card:nth-child(3) {
+    background:
+        radial-gradient(circle at 90% 5%, rgba(23, 107, 255, 0.2), transparent 35%),
+        linear-gradient(145deg, #1A2E50, #101B2D 75%);
+}
+
+#view-combos .combo-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 22px 45px rgba(255, 113, 56, 0.12);
+}
+
+#view-combos .combo-card .eyebrow {
+    color: var(--primary);
+    font-size: 10px;
+}
+
+#view-combos .combo-card .service-icon {
+    width: 58px;
+    height: 58px;
+    margin: 22px 0;
+    border-radius: 16px;
+    background: rgba(255, 113, 56, 0.16);
+    color: #FF9A5B;
+    font-size: 28px;
+}
+
+#view-combos .combo-card:nth-child(2) .service-icon {
+    background: rgba(53, 200, 255, 0.15);
+    color: var(--cyan);
+}
+
+#view-combos .combo-card:nth-child(3) .service-icon {
+    background: rgba(23, 107, 255, 0.18);
+    color: #65A0FF;
+}
+
+#view-combos .combo-card .card-number {
+    color: var(--cyan);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    font-weight: 800;
+}
+
+#view-combos .combo-card h3 {
+    margin: 13px 0;
+    color: var(--text);
+    font-family: var(--font-heading);
+    font-size: 22px;
+}
+
+#view-combos .combo-card p {
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 8px 0 15px;
+}
+
+#view-combos .combo-card p strong {
+    color: white;
+}
+
+#view-combos .combo-card .combo-price {
+    margin-top: auto;
+    padding: 20px 0;
+    color: var(--primary);
+    font-size: 25px;
+    font-weight: 800;
+}
+
+#view-combos .combo-card .primary-button {
+    margin-top: 5px;
+}
+
+/* Etiqueta visual de promoción */
+
+#view-combos .combo-card:first-child::before {
+    content: "MÁS POPULAR";
+    position: absolute;
+    top: 20px;
+    right: -34px;
+    width: 140px;
+    padding: 7px 0;
+    transform: rotate(40deg);
+    background: var(--primary);
+    color: white;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+/* =========================================================
+   AJUSTES PARA MÁS PROFESIONALES
+========================================================= */
+
+.professional-grid {
+    align-items: stretch;
+}
+
+.professional-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+    background:
+        radial-gradient(circle at 100% 0%, rgba(53, 200, 255, 0.09), transparent 38%),
+        linear-gradient(145deg, #172D49, #101B2D);
+}
+
+.professional-card .professional-avatar {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    border: 2px solid rgba(53, 200, 255, 0.25);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+}
+
+.professional-card .professional-avatar img,
+.professional-card img.professional-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.professional-card .professional-price {
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+.professional-card-actions {
+    margin-top: 10px;
+}
+
+/* =========================================================
+   NUEVO BOTÓN DE COMBOS EN LA NAVEGACIÓN
+========================================================= */
+
+.nav-link[data-view="combos"] {
+    white-space: nowrap;
+}
+
+.nav-link[data-view="combos"].active {
+    color: white;
+    background: rgba(255, 113, 56, 0.15);
+    box-shadow: inset 0 -2px var(--primary);
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET Y MÓVIL
+========================================================= */
+
+@media (max-width: 1050px) {
+    #view-combos .service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    #view-combos .service-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #view-combos .combo-card {
+        min-height: 350px;
+        padding: 25px;
+    }
+
+    #view-combos .combo-card h3 {
+        font-size: 20px;
+    }
+
+    .professional-card .professional-avatar {
+        width: 85px;
+        height: 85px;
+    }
+
+    .nav-link[data-view="combos"] {
+        white-space: normal;
+    }
+}
